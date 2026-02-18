@@ -185,17 +185,11 @@ function calculateR2(data, coeffs) {
     for(let i = 0; i < n; i++){
         let actualY = data[i][1];
         let predictedY = evaluatePolynomial(coeffs,data[i][0]);
-        ssTot += sumSquared(actualY - meanY, 2);
-        ssRes += sumSquared(actualY - predictedY, 2);
+        ssTot += Math.pow(actualY - meanY, 2);
+        ssRes += Math.pow(actualY - predictedY, 2);
     }
 
     return 1 - (ssRes / ssTot);
-}
-
-//Helper functions 
-function sumSquared(n, pow){
-    let sumSquared = Math.pow(n, pow);
-    return sumSquared;
 }
 
 // Format equation
@@ -206,15 +200,21 @@ function formatEquation(coeffs, degree) {
     for(let i = degree; i >= 0; i--){
         let coef = coeffs[i];
         if(coef > 0){
-            if(coef !== 1 && !first){
+            if(!first){
                 equation += ' + ';
+            }
+            first = false;
+            if(coef !== 1){
                 equation += coef.toFixed(3);
+            }else if((coef == 1) && (i == 0)){
+                equation += '1';
             }
         }else if (coef < 0){
+            first = false;
             equation += ' - ';
             if(coef !== -1){
                 equation += Math.abs(coef).toFixed(3);
-            }git 
+            }
         }
 
         if((coef !== 0) && (i >= 2)) {
@@ -222,7 +222,6 @@ function formatEquation(coeffs, degree) {
         }else if ((coef !== 0) && (i == 1)){
             equation += 'x';
         }
-        first = false;
     }
 
     return equation;
