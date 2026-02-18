@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Curve Fitter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Polynomial Curve Fitter</h1>
+    
+    <div class="container">
+        <label>Enter your data points (x, y):</label>
+        <textarea id="points">1, 1
+2, 4
+3, 9
+4, 16
+5, 25</textarea>
+        
+        <label>Degree:</label>
+        <select id="degree">
+            <option value="1">1</option>
+            <option value="2" selected>2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        
+        <button onclick="fit()">Fit Curve</button>
+        
+        <div id="result"></div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/regression@2.0.1/dist/regression.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
