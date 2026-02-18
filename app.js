@@ -206,22 +206,20 @@ function formatEquation(coeffs, degree) {
     for(let i = degree; i >= 0; i--){
         let coef = coeffs[i];
         if(coef > 0){
-            if(coef != 1 && !first){
+            if(coef !== 1 && !first){
                 equation += ' + ';
                 equation += coef.toFixed(3);
-            }else{
-                equation += coef;
             }
         }else if (coef < 0){
             equation += ' - ';
-            if(coef != 1){
+            if(coef !== -1){
                 equation += Math.abs(coef).toFixed(3);
-            }
+            }git 
         }
 
-        if((coef != 0) && (i >= 2)) {
+        if((coef !== 0) && (i >= 2)) {
             equation += 'x^' + i;
-        }else if ((coef != 0) && (i == 1)){
+        }else if ((coef !== 0) && (i == 1)){
             equation += 'x';
         }
         first = false;
