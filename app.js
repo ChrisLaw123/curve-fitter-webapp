@@ -1,3 +1,5 @@
+let coeffs;
+let myGraph;
 function fit() {
     // Get input
     let text = document.getElementById('points').value;
@@ -22,7 +24,7 @@ function fit() {
     }
     
     // Fit polynomial
-    let coeffs = polynomialFit(data, degree);
+    coeffs = polynomialFit(data, degree);
     
     // Calculate R²
     let r2 = calculateR2(data, coeffs);
@@ -36,6 +38,7 @@ function fit() {
     output += '<p>R² = ' + r2.toFixed(4) + '</p>';
     
     document.getElementById('result').innerHTML = output;
+    drawGraph(data,coeffs);
 }
 
 // Build Vandermonde matrix
@@ -225,4 +228,62 @@ function formatEquation(coeffs, degree) {
     }
 
     return equation;
+}
+
+function drawGraph(data, coeffs){
+    let xVals = data.map(point =>point[0]);
+    let xMin = Math.min(...xVals);
+    let xMax = Math.max(...xVals);
+
+    let curvePoints = [];
+
+    //100 points to draw function
+    for(let i = 0; i < 100; i++){
+        let x = (xMax-xMin)/99 * i + xMin;
+        let y = evaluatePolynomial(coeffs, x);
+
+        curvePoints.push({x: x,y: y});
+    }
+
+    let scatterPoints = data.map(point => ({x:point[0], y: point[1]}));
+
+    //clear existing graph
+    if(myGraph){
+        myGraph.destroy();
+    }
+
+    let canvas = document.getElementById("graph");
+    let ctx = canvas.getContext('2d');
+    myGraph = new Chart(ctx, {
+        type: 'scatter',
+        data: {
+            datasets: [
+                {
+                    label: 'Fitted Curve', 
+                    data: curvePoints, 
+                    showLine: true,
+                    pointRadius: 0,
+                    borderColor: 'blue'
+                },
+                {
+                    label: 'Data Points',
+                    data: scatterPoints,
+                    pointRadius: 5,
+                    borderColor: 'red',
+                    backgroundColor: 'red'
+                }
+            ]
+        }
+    });
+}
+
+function approximate(){
+    let x = parseFloat(document.getElementById("xInput").value);
+
+    if(!coeffs || isNaN(x)){
+        document.getElementById("approxResult").innerHTML = "Fit a curve first or enter a valid number"
+        return;
+    }
+    let result = evaluatePolynomial(coeffs, x);
+    document.getElementById("approxResult").innerHTML = 'y = ' + result.toFixed(4);
 }

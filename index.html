@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Curve Fitter</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h1>Polynomial Curve Fitter</h1>
@@ -27,9 +27,16 @@
         <button onclick="fit()">Fit Curve</button>
         
         <div id="result"></div>
+
+        <canvas id = "graph"></canvas>
+
+        <label>Enter X value:</label>
+        <input type = "number" id = "xInput">
+        <button onclick ="approximate()"> Approximate </button>
+        <div id = "approxResult"></div>
+
     </div>
-    
-    <script src="https://cdn.jsdelivr.net/npm/regression@2.0.1/dist/regression.min.js"></script>
-    <script src="app.js"></script>
+    <script src = "https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src = "app.js"></script>
 </body>
 </html>

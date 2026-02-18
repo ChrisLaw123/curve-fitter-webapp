@@ -54,3 +54,15 @@ button:hover {
     background: white;
     border-radius: 5px;
 }
+
+#approxResult{
+    margin-top: 20px;
+    padding: 15px;
+    background: white;
+    border-radius: 5px;
+}
+
+canvas{
+    margin-top: 20px;
+    width: 100%;
+}
