@@ -38,6 +38,7 @@ function fit() {
     output += '<p>R² = ' + r2.toFixed(4) + '</p>';
     
     document.getElementById('result').innerHTML = output;
+    document.getElementById('result').style.display = 'block';
     drawGraph(data,coeffs);
 }
 
@@ -201,14 +202,14 @@ function formatEquation(coeffs, degree) {
     let first = true;
 
     for(let i = degree; i >= 0; i--){
-        let coef = coeffs[i];
+        let coef = coeffs[i].toFixed(3);
         if(coef > 0){
             if(!first){
                 equation += ' + ';
             }
             first = false;
             if(coef !== 1){
-                equation += coef.toFixed(3);
+                equation += coef;
             }else if((coef == 1) && (i == 0)){
                 equation += '1';
             }
@@ -216,7 +217,7 @@ function formatEquation(coeffs, degree) {
             first = false;
             equation += ' - ';
             if(coef !== -1){
-                equation += Math.abs(coef).toFixed(3);
+                equation += Math.abs(coef);
             }
         }
 
@@ -282,8 +283,20 @@ function approximate(){
 
     if(!coeffs || isNaN(x)){
         document.getElementById("approxResult").innerHTML = "Fit a curve first or enter a valid number"
+        document.getElementById('approxResult').style.display = 'block';
         return;
     }
     let result = evaluatePolynomial(coeffs, x);
     document.getElementById("approxResult").innerHTML = 'y = ' + result.toFixed(4);
+    document.getElementById('approxResult').style.display = 'block';
+}
+
+function loadFile(){
+    let file = document.getElementById('fileInput').files[0];
+    let reader = new FileReader();
+    reader.onload = function(e){
+        document.getElementById('points').value = e.target.result;
+    }
+    reader.readAsText(file);
+
 }

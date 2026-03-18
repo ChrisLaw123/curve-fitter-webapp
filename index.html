@@ -6,37 +6,47 @@
 </head>
 <body>
     <h1>Polynomial Curve Fitter</h1>
-    
-    <div class="container">
-        <label>Enter your data points (x, y):</label>
-        <textarea id="points">1, 1
+
+    <div class="layout">
+        <div class="panel">
+            <label>Data Points (x, y)</label>
+            <textarea id="points">1, 1
 2, 4
 3, 9
 4, 16
 5, 25</textarea>
-        
-        <label>Degree:</label>
-        <select id="degree">
-            <option value="1">1</option>
-            <option value="2" selected>2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-        </select>
-        
-        <button onclick="fit()">Fit Curve</button>
-        
-        <div id="result"></div>
+            <label>Upload File (.csv or .txt)</label>
+            <input type="file" id="fileInput" accept=".csv,.txt" onchange="loadFile()">
 
-        <canvas id = "graph"></canvas>
+            <label>Degree</label>
+            <select id="degree">
+                <option value="1">1 — Linear</option>
+                <option value="2" selected>2 — Quadratic</option>
+                <option value="3">3 — Cubic</option>
+                <option value="4">4 — Quartic</option>
+                <option value="5">5 — Quintic</option>
+            </select>
 
-        <label>Enter X value:</label>
-        <input type = "number" id = "xInput">
-        <button onclick ="approximate()"> Approximate </button>
-        <div id = "approxResult"></div>
+            <button onclick="fit()">Fit Curve</button>
 
+            <div id="result"></div>
+
+            <hr>
+
+            <label>Approximate Y from X</label>
+            <div class="approx-row">
+                <input type="number" id="xInput" placeholder="x value">
+                <button onclick="approximate()">Go</button>
+            </div>
+            <div id="approxResult"></div>
+        </div>
+
+        <div class="graph-panel">
+            <canvas id="graph"></canvas>
+        </div>
     </div>
-    <script src = "https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src = "app.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
