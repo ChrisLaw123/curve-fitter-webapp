@@ -1,88 +1,51 @@
-**Polynomial Curve Fitter Web App**
+# Polynomial Curve Fitter
 
-A browser-based application that performs polynomial curve fitting using a manual implementation of least squares regression.
+A browser-based tool for fitting polynomials to data using least squares regression
 
-Users can enter (x, y) data points, choose a polynomial degree, and instantly compute the best-fit equation along with its R² value.
+[**Link**](https://chrislaw123.github.io/curve-fitter-webapp/)
 
-Try it out here: (setup link soon)
+---
 
-**Features**
+## Features
 
-Input data as (x, y) pairs
+- Fit polynomials of degree 1–5 to any set of (x, y) data points
+- Displays the fitted equation and R² value
+- Plots the curve and raw data points side by side
+- Approximate y for any x value using the fitted function
+- Upload data from a `.csv` or `.txt` file
 
-Polynomial degrees 1–5 (capped to prevent overfitting)
+## How to Use
 
-Least squares implementation to find curve of best fit
+1. Enter data points in the format `x, y` (one per line) or upload a file
+2. Select a polynomial degree
+3. Click **Fit Curve**
+4. Optionally enter an x value and click **Go** to approximate y
 
-Matrix construction and equation solving in JavaScript
+## Data Format
 
-Displays fitted equation
+```
+1, 4
+2, 9
+3, 16
+4, 25
+```
 
-Computes R² (goodness of fit)
+## How It Works
 
-Runs directly in the browser
+Given n data points, the app builds a Vandermonde matrix X and solves the normal equations:
 
-**Technologies Used**
-
-HTML5
-
-CSS3
-
-JavaScript (ES6)
-
-**How to Use**
-
-Open the live demo link: (setup link soon)
-
-Enter data points in the format:
-
-x 
-1, 2
-2, 5
-3, 10
-
-
-Select a polynomial degree.
-
-Click Fit Curve.
-
-View the equation, curve with plot points, and R² instantly.
-
-**How It Works**
-
-For a polynomial of degree k:
-
-y = a₀ + a₁x + a₂x² + ... + aₖxᵏ
-
-Given input data, the app:
-
-Constructs the Vandermonde matrix X
-
-Forms the normal equations:
-
+```
 (XᵀX)a = Xᵀy
+```
 
-Solves for the coefficient vector a using matrix operations
+Gaussian elimination is used to find the coefficient vector `a`. R² is then computed as:
 
-Computes predicted values and evaluates:
+```
+R² = 1 - (SS_res / SS_tot)
+```
 
-R² = 1 − (SS_res / SS_tot)
+All math is implemented from scratch with no external libraries.
 
-This minimizes the sum of squared residuals:
+## Tools & Languages Used
 
-Σ (yᵢ − ŷᵢ)²
-
-**Example**
-
-Input
-
-1, 1
-2, 4
-3, 9
-4, 16
-
-
-Output (Degree 2)
-
-y = x²
-R² = 1.0000
+HTML · CSS · JavaScript · Chart.js
