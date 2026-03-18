@@ -202,7 +202,8 @@ function formatEquation(coeffs, degree) {
     let first = true;
 
     for(let i = degree; i >= 0; i--){
-        let coef = coeffs[i].toFixed(3);
+        let coef = Math.round(coeffs[i] * 1000) / 1000;;
+        
         if(coef > 0){
             if(!first){
                 equation += ' + ';
